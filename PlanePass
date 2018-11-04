@@ -1,0 +1,178 @@
+Program 1:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct plane {
+	int id_no;
+	char name[15];
+	char surname[20];
+	char seat[5];
+	int status;
+};
+
+
+
+int main(void)
+{
+ int i; 
+
+struct plane blankPassenger = {0,"","","",0};
+ FILE *psPtr; 
+
+ if ( (psPtr = fopen( "flight.txt", "wb" ) ) == NULL ) {
+ printf( "File could not be opened.\n" );
+ } 
+else {
+for ( i = 1; i <= 25; i++ ) {
+fwrite( &blankPassenger, sizeof( struct plane ), 1, psPtr );
+} 
+ fclose ( psPtr );
+ }
+ system(" pause "); 
+ } 
+
+Program 2:
+#include <stdio.h>
+#include <stdlib.h>
+
+struct plane {
+	int id_no;
+	char name[15];
+	char surname[20];
+	char seat[5];
+	int status;
+	
+};
+
+
+
+int main(void)
+{
+FILE *psPtr; 
+ struct plane passenger = { 0, "", "","",0 };
+ struct plane yolcu;
+if ( (psPtr = fopen( "flight.txt", "rb+" ) ) == NULL ) {
+printf( "File could not be opened.\n" );
+ } 
+ else {
+
+ printf( "Enter passenger id number" " ( 1 to 25, 0 to end input )\n? " );
+scanf( "%d", &yolcu.id_no);
+while ( yolcu.id_no != 0 ) {
+
+ printf( "Enter name, surname, seat,status\n? " );
+
+ fscanf( stdin, "%s%s%s%d", yolcu.name,
+	 yolcu.surname, yolcu.seat,&yolcu.status );
+
+fseek( psPtr, ( yolcu.id_no - 1 ) *sizeof( struct plane ), SEEK_SET );
+
+fwrite( &passenger, sizeof( struct plane ), 1, psPtr );
+
+ printf( "Enter id number\n? " );
+ scanf( "%d", &yolcu.id_no );
+ } 
+ fclose( psPtr ); 
+ } 
+ system(" pause " ); 
+ } 
+
+
+
+Program 3:
+#include <stdio.h>
+#include <stdlib.h>
+
+struct plane {
+	int id_no;
+	char name[15];
+	char surname[20];
+	char seat[5];
+	int status;
+	
+};
+
+
+
+int main(void)
+{
+FILE *psPtr; 
+
+struct plane passenger = { 0, "", "", "" ,0};
+
+ if ( (psPtr = fopen( "flight.txt", "rb" ) ) == NULL ) {
+printf( "File could not be opened.\n" );
+ } 
+ else {
+ printf( "%-6s%-11s%-15s%-19s%-23s\n", "ID NO", "Name", "Surname", "Seat","Status" );
+
+ while ( !feof( psPtr ) ) {
+ 	fread( &passenger, sizeof( struct plane ), 1, psPtr );
+
+ if ( passenger.id_no != 0 ) {
+ printf( "%-6d%-11s%-15s%-19s%-23d\n",
+	 passenger.id_no, passenger.name,
+	 passenger.surname, passenger.seat,passenger.status );
+ } 
+ } 
+ fclose( psPtr ); 
+ } 
+ system(" pause " ); 
+ } 
+
+
+Program 4:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct plane {
+	int id_no;
+	char name[15];
+	char surname[20];
+	char seat[5];
+	int status;
+	
+};
+
+
+
+int main(void)
+{
+FILE *psPtr; 
+
+float price=300.00;
+float disprice=0.00;
+
+struct plane passenger = { 0, "", "", "" ,0};
+
+ if ( (psPtr = fopen( "flight.txt", "rb" ) ) == NULL ) {
+printf( "File could not be opened.\n" );
+ } 
+ else {
+ printf( "%-6s%-11s%-15s%-19s%-23s%-25s\n", "ID NO", "Name", "Surname", "Seat","Status","Price" );
+
+ while ( !feof( psPtr ) ) {
+ 	fread( &passenger, sizeof( struct plane ), 1, psPtr );
+
+ if ( passenger.id_no != 0 ) {
+
+	 switch(passenger.status){
+	 case 0: 
+		 disprice=price*0.9;
+		 break;
+	 case 1: 
+		 disprice=price*0.8;
+		  break;
+	 }
+ printf( "%-6d%-11s%-15s%-19s%-23d%-7.2f\n",
+	 passenger.id_no, passenger.name,
+	 passenger.surname, passenger.seat,passenger.status,disprice );
+ } 
+ } 
+ fclose( psPtr ); 
+ } 
+ system(" pause " ); 
+ } 
+
